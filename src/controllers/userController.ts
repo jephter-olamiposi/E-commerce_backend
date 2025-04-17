@@ -20,7 +20,11 @@ export const registerUser = async (
     }
 
     const hashedPassword = await hashPassword(data.password);
-    const user = await createUser({ ...data, password: hashedPassword });
+    const user = await createUser({
+      ...data,
+      password: hashedPassword,
+      role: "customer",
+    });
 
     const token = signToken({ userId: user.id, role: user.role });
 
