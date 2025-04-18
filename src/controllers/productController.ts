@@ -19,18 +19,43 @@ export const handleCreateProduct = async (
   try {
     const data = createProductSchema.parse(req.body);
     const product = await createProduct(data);
-    return res.status(201).json({ message: "Product created", product });
+    return res.status(201).json({
+      status: "success",
+      message: "Product created",
+      data: product,
+    });
   } catch (error: any) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({
+      status: "error",
+      message: error.message || "Invalid input",
+    });
   }
 };
 
 export const handleGetAllProducts = async (
-  _req: Request,
+  req: Request,
   res: Response
 ): Promise<any> => {
-  const products = await getAllProducts();
-  return res.json(products);
+  try {
+    const categoryId = req.query.category_id;
+    let products;
+
+    if (categoryId) {
+      products = await getAllProducts(Number(categoryId));
+    } else {
+      products = await getAllProducts();
+    }
+
+    return res.status(200).json({
+      status: "success",
+      data: products,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      status: "error",
+      message: "Could not fetch products",
+    });
+  }
 };
 
 export const handleGetProductById = async (
@@ -40,12 +65,23 @@ export const handleGetProductById = async (
   try {
     const { id } = idParamSchema.parse(req.params);
     const product = await getProductById(Number(id));
+
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({
+        status: "error",
+        message: "Product not found",
+      });
     }
-    return res.json(product);
+
+    return res.status(200).json({
+      status: "success",
+      data: product,
+    });
   } catch (error: any) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({
+      status: "error",
+      message: error.message || "Invalid product ID",
+    });
   }
 };
 
@@ -57,12 +93,24 @@ export const handleUpdateProduct = async (
     const { id } = idParamSchema.parse(req.params);
     const data = updateProductSchema.parse(req.body);
     const updated = await updateProduct(Number(id), data);
+
     if (!updated) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({
+        status: "error",
+        message: "Product not found",
+      });
     }
-    return res.json({ message: "Product updated", product: updated });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Product updated",
+      data: updated,
+    });
   } catch (error: any) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({
+      status: "error",
+      message: error.message || "Invalid input",
+    });
   }
 };
 
@@ -73,11 +121,22 @@ export const handleDeleteProduct = async (
   try {
     const { id } = idParamSchema.parse(req.params);
     const deleted = await deleteProduct(Number(id));
+
     if (!deleted) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({
+        status: "error",
+        message: "Product not found",
+      });
     }
-    return res.json({ message: "Product deleted" });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Product deleted",
+    });
   } catch (error: any) {
-    return res.status(400).json({ error: error.message });
+    return res.status(400).json({
+      status: "error",
+      message: error.message || "Invalid input",
+    });
   }
 };

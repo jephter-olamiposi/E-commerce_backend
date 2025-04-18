@@ -14,6 +14,7 @@ export async function up(knex: Knex): Promise<void> {
       .inTable("categories")
       .onDelete("SET NULL");
     table.timestamp("created_at").defaultTo(knex.fn.now());
+    table.timestamp("updated_at").defaultTo(knex.fn.now());
   });
 }
 

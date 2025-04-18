@@ -12,11 +12,9 @@ import { requireAdmin } from "../middleware/requireAdmin";
 
 const router = Router();
 
-// Public routes
 router.get("/", handleGetAllCategories);
 router.get("/:id", handleGetCategoryById);
 
-// Admin-protected routes
 router.post("/", requireAuth, requireAdmin, handleCreateCategory);
 router.put("/:id", requireAuth, requireAdmin, handleUpdateCategory);
 router.delete("/:id", requireAuth, requireAdmin, handleDeleteCategory);
