@@ -24,10 +24,10 @@ export const handleCreateProduct = async (
       message: "Product created",
       data: product,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -50,10 +50,10 @@ export const handleGetAllProducts = async (
       status: "success",
       data: products,
     });
-  } catch (error: any) {
-    return res.status(500).json({
-      status: "error",
-      message: "Could not fetch products",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -77,10 +77,10 @@ export const handleGetProductById = async (
       status: "success",
       data: product,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid product ID",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -106,10 +106,10 @@ export const handleUpdateProduct = async (
       message: "Product updated",
       data: updated,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -133,10 +133,10 @@ export const handleDeleteProduct = async (
       status: "success",
       message: "Product deleted",
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };

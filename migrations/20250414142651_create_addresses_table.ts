@@ -1,8 +1,9 @@
 import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable("addresses", (table) => {
+  await knex.schema.createTable("addresses", (table) => {
     table.increments("id").primary();
+
     table
       .integer("user_id")
       .unsigned()
@@ -16,11 +17,12 @@ export async function up(knex: Knex): Promise<void> {
     table.string("state").notNullable();
     table.string("zip_code").notNullable();
     table.string("country").notNullable();
+
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable("addresses");
+  await knex.schema.dropTable("addresses");
 }

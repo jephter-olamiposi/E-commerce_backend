@@ -28,10 +28,10 @@ export const handleCreateOrder = async (
         items: result.items,
       },
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid order data",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -51,10 +51,10 @@ export const handleGetUserOrders = async (
       status: "success",
       data: orders,
     });
-  } catch (error: any) {
-    return res.status(500).json({
-      status: "error",
-      message: "Could not fetch orders",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -78,10 +78,10 @@ export const handleGetOrderById = async (
       status: "success",
       data: order,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid request",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };

@@ -2,14 +2,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-if (!process.env.JWT_SECRET) {
-  throw new Error("Missing JWT_SECRET in .env");
+const requiredEnv = ["JWT_SECRET", "DATABASE_URL"] as const;
+
+for (const key of requiredEnv) {
+  if (!process.env[key]) {
+    throw new Error(`Missing ${key} in .env`);
+  }
 }
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("Missing DATABASE_URL in .env");
-}
-
-export const JWT_SECRET = process.env.JWT_SECRET;
-export const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
-export const DATABASE_URL = process.env.DATABASE_URL;
+export const config = {
+  JWT_SECRET: process.env.JWT_SECRET as string,
+  DATABASE_URL: process.env.DATABASE_URL as string,
+  PORT: process.env.PORT ? Number(process.env.PORT) : 4000,
+};

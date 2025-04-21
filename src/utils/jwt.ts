@@ -1,7 +1,7 @@
 import jwt, { Secret, SignOptions } from "jsonwebtoken";
-import { JWT_SECRET } from "../config/env";
+import { config } from "../config/env";
 
-const secret: Secret = JWT_SECRET;
+const secret: Secret = config.JWT_SECRET;
 
 export const signToken = (
   payload: object,

@@ -50,10 +50,10 @@ export const registerUser = async (
         token,
       },
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -93,10 +93,10 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
         token,
       },
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -130,10 +130,10 @@ export const createAdminUser = async (
         created_at: user.created_at,
       },
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };

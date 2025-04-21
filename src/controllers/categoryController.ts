@@ -24,10 +24,10 @@ export const handleCreateCategory = async (
       message: "Category created",
       data: category,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -60,10 +60,10 @@ export const handleGetCategoryById = async (
       status: "success",
       data: category,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -87,10 +87,10 @@ export const handleUpdateCategory = async (
       message: "Category updated",
       data: updated,
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
@@ -112,10 +112,10 @@ export const handleDeleteCategory = async (
       status: "success",
       message: "Category deleted",
     });
-  } catch (error: any) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message || "Invalid input",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "An error occurred",
     });
   }
 };
