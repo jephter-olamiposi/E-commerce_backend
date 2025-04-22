@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { config } from "./config/env";
 import userRoutes from "./routes/userRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
@@ -6,6 +7,13 @@ import productRoutes from "./routes/productRoutes";
 import orderRoutes from "./routes/orderRoutes";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: config.FRONTEND_URL,
+    credentials: true, // allow cookies or Authorization header if needed
+  })
+);
 
 app.use(express.json());
 

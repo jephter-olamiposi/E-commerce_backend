@@ -37,14 +37,11 @@ export const handleGetAllProducts = async (
   res: Response
 ): Promise<any> => {
   try {
-    const categoryId = req.query.category_id;
-    let products;
+    const categoryId = req.query.category_id
+      ? Number(req.query.category_id)
+      : undefined;
 
-    if (categoryId) {
-      products = await getAllProducts(Number(categoryId));
-    } else {
-      products = await getAllProducts();
-    }
+    const products = await getAllProducts(categoryId);
 
     return res.status(200).json({
       status: "success",
@@ -52,7 +49,7 @@ export const handleGetAllProducts = async (
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       message: "An error occurred",
     });
   }
