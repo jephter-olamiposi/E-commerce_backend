@@ -15,6 +15,7 @@ export const createProduct = async (data: CreateProductInput) => {
       "image_url",
       "description",
       "created_at",
+      "updated_at",
     ]);
   return product;
 };

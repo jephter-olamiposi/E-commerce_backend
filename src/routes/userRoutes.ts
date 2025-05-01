@@ -4,7 +4,7 @@ import {
   loginUser,
   createAdminUser,
 } from "../controllers/userController";
-import { requireAuth } from "../middleware/authMiddleware";
+import { requireAuth } from "../middleware/requireAuth";
 import { requireAdmin } from "../middleware/requireAdmin";
 
 const router = Router();

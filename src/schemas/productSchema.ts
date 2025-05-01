@@ -11,9 +11,7 @@ export const createProductSchema = z.object({
 export const updateProductSchema = createProductSchema.partial();
 
 export const idParamSchema = z.object({
-  id: z.string().refine((val) => /^\d+$/.test(val), {
-    message: "Product ID must be a valid number",
-  }),
+  id: z.string().regex(/^\d+$/, "Product ID must be a valid number"),
 });
 
 export type CreateProductInput = z.infer<typeof createProductSchema>;

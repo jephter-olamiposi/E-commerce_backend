@@ -29,7 +29,14 @@ export const createOrder = async (userId: number, data: CreateOrderInput) => {
         address_id: address.id,
         status: "pending",
       })
-      .returning(["id", "user_id", "address_id", "status", "created_at"]);
+      .returning([
+        "id",
+        "user_id",
+        "address_id",
+        "status",
+        "created_at",
+        "updated_at",
+      ]);
 
     const orderItems = products.map((product) => {
       const quantity =

@@ -36,13 +36,19 @@ export const handleGetAllCategories = async (
   _req: Request,
   res: Response
 ): Promise<any> => {
-  const categories = await getAllCategories();
-  return res.status(200).json({
-    status: "success",
-    data: categories,
-  });
+  try {
+    const categories = await getAllCategories();
+    return res.status(200).json({
+      status: "success",
+      data: categories,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "An error occurred",
+    });
+  }
 };
-
 export const handleGetCategoryById = async (
   req: Request,
   res: Response
@@ -75,22 +81,27 @@ export const handleUpdateCategory = async (
   try {
     const { id } = idParamSchema.parse(req.params);
     const data = updateCategorySchema.parse(req.body);
-    const updated = await updateCategory(Number(id), data);
-    if (!updated) {
+
+    const existing = await getCategoryById(Number(id));
+
+    if (!existing) {
       return res.status(404).json({
         status: "error",
         message: "Category not found",
       });
     }
+
+    const updated = await updateCategory(Number(id), data);
+
     return res.status(200).json({
       status: "success",
       message: "Category updated",
       data: updated,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
+    console.error(error);
+    return res.status(500).json({
+      message: "An unexpected error occurred",
     });
   }
 };
@@ -101,21 +112,26 @@ export const handleDeleteCategory = async (
 ): Promise<any> => {
   try {
     const { id } = idParamSchema.parse(req.params);
-    const deleted = await deleteCategory(Number(id));
-    if (!deleted) {
+
+    const existing = await getCategoryById(Number(id));
+
+    if (!existing) {
       return res.status(404).json({
         status: "error",
         message: "Category not found",
       });
     }
+
+    await deleteCategory(Number(id));
+
     return res.status(200).json({
       status: "success",
       message: "Category deleted",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
+    return res.status(500).json({
+      message: "An unexpected error occurred",
     });
   }
 };

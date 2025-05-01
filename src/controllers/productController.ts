@@ -88,22 +88,25 @@ export const handleUpdateProduct = async (
 ): Promise<any> => {
   try {
     const { id } = idParamSchema.parse(req.params);
-    const data = updateProductSchema.parse(req.body);
-    const updated = await updateProduct(Number(id), data);
+    const body = updateProductSchema.parse(req.body);
 
-    if (!updated) {
+    const existing = await getProductById(Number(id));
+
+    if (!existing) {
       return res.status(404).json({
         status: "error",
         message: "Product not found",
       });
     }
 
+    const updated = await updateProduct(Number(id), body);
+
     return res.status(200).json({
       status: "success",
       message: "Product updated",
       data: updated,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     res.status(500).json({
       message: "An error occurred",
@@ -117,14 +120,17 @@ export const handleDeleteProduct = async (
 ): Promise<any> => {
   try {
     const { id } = idParamSchema.parse(req.params);
-    const deleted = await deleteProduct(Number(id));
 
-    if (!deleted) {
+    const existing = await getProductById(Number(id));
+
+    if (!existing) {
       return res.status(404).json({
         status: "error",
         message: "Product not found",
       });
     }
+
+    await deleteProduct(Number(id));
 
     return res.status(200).json({
       status: "success",
@@ -132,8 +138,9 @@ export const handleDeleteProduct = async (
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
+
+    return res.status(500).json({
+      message: "An unexpected error occurred",
     });
   }
 };

@@ -5,8 +5,8 @@ const secret: Secret = config.JWT_SECRET;
 
 export const signToken = (
   payload: object,
-  expiresIn: SignOptions["expiresIn"] = "11min"
-) => {
+  expiresIn: SignOptions["expiresIn"] = "10m"
+): string => {
   return jwt.sign(payload, secret, { expiresIn });
 };
 

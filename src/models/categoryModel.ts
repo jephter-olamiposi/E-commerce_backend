@@ -7,7 +7,7 @@ import {
 export const createCategory = async (data: CreateCategoryInput) => {
   const [category] = await db("categories")
     .insert(data)
-    .returning(["id", "name", "created_at"]);
+    .returning(["id", "name", "created_at", "updated_at"]);
   return category;
 };
 

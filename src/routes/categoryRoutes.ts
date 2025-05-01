@@ -7,7 +7,7 @@ import {
   handleDeleteCategory,
 } from "../controllers/categoryController";
 
-import { requireAuth } from "../middleware/authMiddleware";
+import { requireAuth } from "../middleware/requireAuth";
 import { requireAdmin } from "../middleware/requireAdmin";
 
 const router = Router();
@@ -16,7 +16,7 @@ router.get("/", handleGetAllCategories);
 router.get("/:id", handleGetCategoryById);
 
 router.post("/", requireAuth, requireAdmin, handleCreateCategory);
-router.put("/:id", requireAuth, requireAdmin, handleUpdateCategory);
+router.patch("/:id", requireAuth, requireAdmin, handleUpdateCategory);
 router.delete("/:id", requireAuth, requireAdmin, handleDeleteCategory);
 
 export default router;

@@ -4,7 +4,7 @@ import {
   handleGetOrderById,
   handleGetUserOrders,
 } from "../controllers/orderController";
-import { requireAuth } from "../middleware/authMiddleware";
+import { requireAuth } from "../middleware/requireAuth";
 
 const router = Router();
 

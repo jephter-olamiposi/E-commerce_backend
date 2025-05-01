@@ -21,9 +21,12 @@ export async function up(knex: Knex): Promise<void> {
       .onDelete("CASCADE");
 
     table.integer("quantity").unsigned().notNullable();
+    table.decimal("unit_price", 10, 2).notNullable().defaultTo(0);
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable("order_items");
+  await knex.schema.alterTable("order_items", (table) => {
+    table.dropColumn("unit_price");
+  });
 }
