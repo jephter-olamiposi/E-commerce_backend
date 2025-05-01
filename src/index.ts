@@ -6,7 +6,6 @@ import categoryRoutes from "./routes/categoryRoutes";
 import productRoutes from "./routes/productRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import orderItemRoutes from "./routes/orderItemRoutes";
-import refreshTokenRoutes from "./routes/refreshTokenRoutes";
 import addressRoutes from "./routes/addressRoutes";
 
 const app = express();
@@ -25,7 +24,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/order-items", orderItemRoutes);
-app.use("/api/refreshToken", refreshTokenRoutes);
 app.use("/api/addresses", addressRoutes);
 
 app.listen(config.PORT, () => {
