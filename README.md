@@ -9,7 +9,7 @@ A modular, secure TypeScript-based REST API for e-commerce platforms. Built with
 - **Language**: TypeScript
 - **Server**: Express.js
 - **DB**: PostgreSQL with Knex.js
-- **Auth**: JWT + Refresh Tokens
+- **Auth**: JWT 
 - **Validation**: Zod
 - **Others**: dotenv, bcrypt, ts-node, nodemon
 
@@ -37,10 +37,6 @@ npm run dev
 ## Auth System
 
 - Access token: short-lived (`10m`)
-- Refresh token: long-lived (7 days), stored in DB
-- Auto-expired refresh token cleanup
-- Token rotation on refresh
-
 ---
 
 ##  Features

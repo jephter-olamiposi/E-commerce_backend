@@ -140,7 +140,7 @@ export const handleDeleteProduct = async (
     console.log(error);
 
     return res.status(500).json({
-      message: "An unexpected error occurred",
+      message: "An error occurred",
     });
   }
 };

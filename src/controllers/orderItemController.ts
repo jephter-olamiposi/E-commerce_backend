@@ -17,7 +17,7 @@ export const handleGetOrderItems = async (
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "An error occurred fetching order items",
+      message: "An error occurred ",
     });
   }
 };

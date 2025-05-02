@@ -101,7 +101,7 @@ export const handleUpdateCategory = async (
   } catch (error) {
     console.error(error);
     return res.status(500).json({
-      message: "An unexpected error occurred",
+      message: "An error occurred",
     });
   }
 };
@@ -131,7 +131,7 @@ export const handleDeleteCategory = async (
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: "An unexpected error occurred",
+      message: "An  error occurred",
     });
   }
 };
