@@ -11,13 +11,8 @@ export const handleCreateOrder = async (
   res: Response
 ): Promise<any> => {
   try {
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
-
     const data = createOrderSchema.parse(req.body);
-    const result = await createOrder(user.userId, data);
+    const result = await createOrder(req.user!.userId, data);
 
     return res.status(201).json({
       status: "success",
@@ -41,12 +36,7 @@ export const handleGetUserOrders = async (
   res: Response
 ): Promise<any> => {
   try {
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
-
-    const orders = await getOrdersByUser(user.userId);
+    const orders = await getOrdersByUser(req.user!.userId);
     return res.status(200).json({
       status: "success",
       data: orders,

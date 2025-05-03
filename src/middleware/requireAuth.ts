@@ -38,7 +38,7 @@ export const requireAuth = (
     }
 
     return res.status(500).json({
-      message: "An error occurred while verifying authentication",
+      message: "An error occurred",
     });
   }
 };

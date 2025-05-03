@@ -17,18 +17,12 @@ export const handleCreateAddress = async (
   res: Response
 ): Promise<any> => {
   try {
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
     const data = createAddressSchema.parse(req.body);
-    const address = await createAddress(user.userId, data);
+    const address = await createAddress(req.user!.userId, data);
     return res.status(201).json({ status: "success", data: address });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
-    });
+    res.status(500).json({ message: "An error occurred" });
   }
 };
 
@@ -37,17 +31,11 @@ export const handleGetAddresses = async (
   res: Response
 ): Promise<any> => {
   try {
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
-    const addresses = await getAddressesByUser(user.userId);
+    const addresses = await getAddressesByUser(req.user!.userId);
     return res.status(200).json({ status: "success", data: addresses });
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
-    });
+    res.status(500).json({ message: "An error occurred" });
   }
 };
 
@@ -57,11 +45,7 @@ export const handleGetAddressById = async (
 ): Promise<any> => {
   try {
     const { id } = addressIdParamSchema.parse(req.params);
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
-    const address = await getAddressById(Number(id), user.userId);
+    const address = await getAddressById(Number(id), req.user!.userId);
     if (!address) {
       return res
         .status(404)
@@ -70,9 +54,7 @@ export const handleGetAddressById = async (
     return res.status(200).json({ status: "success", data: address });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
-    });
+    res.status(500).json({ message: "An error occurred" });
   }
 };
 
@@ -82,12 +64,7 @@ export const handleUpdateAddress = async (
 ): Promise<any> => {
   try {
     const { id } = addressIdParamSchema.parse(req.params);
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
-
-    const existing = await getAddressById(Number(id), user.userId);
+    const existing = await getAddressById(Number(id), req.user!.userId);
     if (!existing) {
       return res
         .status(404)
@@ -95,14 +72,11 @@ export const handleUpdateAddress = async (
     }
 
     const data = updateAddressSchema.parse(req.body);
-    const updated = await updateAddress(Number(id), user.userId, data);
-
+    const updated = await updateAddress(Number(id), req.user!.userId, data);
     return res.status(200).json({ status: "success", data: updated });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
-    });
+    res.status(500).json({ message: "An error occurred" });
   }
 };
 
@@ -112,11 +86,7 @@ export const handleDeleteAddress = async (
 ): Promise<any> => {
   try {
     const { id } = addressIdParamSchema.parse(req.params);
-    const user = req.user;
-    if (!user) {
-      return res.status(401).json({ status: "error", message: "Unauthorized" });
-    }
-    const deleted = await deleteAddress(Number(id), user.userId);
+    const deleted = await deleteAddress(Number(id), req.user!.userId);
     if (!deleted) {
       return res
         .status(404)
@@ -127,8 +97,6 @@ export const handleDeleteAddress = async (
       .json({ status: "success", message: "Address deleted" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "An error occurred",
-    });
+    res.status(500).json({ message: "An error occurred" });
   }
 };
