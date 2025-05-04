@@ -18,7 +18,7 @@ export const handleCreateAddress = async (
 ): Promise<any> => {
   try {
     const data = createAddressSchema.parse(req.body);
-    const address = await createAddress(req.user!.userId, data);
+    const address = await createAddress(req.user.userId, data);
     return res.status(201).json({ status: "success", data: address });
   } catch (error) {
     console.log(error);
@@ -31,7 +31,7 @@ export const handleGetAddresses = async (
   res: Response
 ): Promise<any> => {
   try {
-    const addresses = await getAddressesByUser(req.user!.userId);
+    const addresses = await getAddressesByUser(req.user.userId);
     return res.status(200).json({ status: "success", data: addresses });
   } catch (error) {
     console.log(error);
@@ -45,7 +45,7 @@ export const handleGetAddressById = async (
 ): Promise<any> => {
   try {
     const { id } = addressIdParamSchema.parse(req.params);
-    const address = await getAddressById(Number(id), req.user!.userId);
+    const address = await getAddressById(Number(id), req.user.userId);
     if (!address) {
       return res
         .status(404)
@@ -64,7 +64,7 @@ export const handleUpdateAddress = async (
 ): Promise<any> => {
   try {
     const { id } = addressIdParamSchema.parse(req.params);
-    const existing = await getAddressById(Number(id), req.user!.userId);
+    const existing = await getAddressById(Number(id), req.user.userId);
     if (!existing) {
       return res
         .status(404)
@@ -72,7 +72,7 @@ export const handleUpdateAddress = async (
     }
 
     const data = updateAddressSchema.parse(req.body);
-    const updated = await updateAddress(Number(id), req.user!.userId, data);
+    const updated = await updateAddress(Number(id), req.user.userId, data);
     return res.status(200).json({ status: "success", data: updated });
   } catch (error) {
     console.log(error);
@@ -86,7 +86,7 @@ export const handleDeleteAddress = async (
 ): Promise<any> => {
   try {
     const { id } = addressIdParamSchema.parse(req.params);
-    const deleted = await deleteAddress(Number(id), req.user!.userId);
+    const deleted = await deleteAddress(Number(id), req.user.userId);
     if (!deleted) {
       return res
         .status(404)

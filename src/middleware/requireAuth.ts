@@ -13,7 +13,7 @@ export const requireAuth = (
 
     if (!authHeader) {
       return res.status(401).json({
-        message: "Unauthorized: Token is required",
+        message: "Unauthorized:invalid token",
       });
     }
 
@@ -27,7 +27,7 @@ export const requireAuth = (
 
     if (error instanceof jwt.TokenExpiredError) {
       return res.status(401).json({
-        message: "Unauthorized: Token has expired",
+        message: "Unauthorized:invalid token",
       });
     }
 
